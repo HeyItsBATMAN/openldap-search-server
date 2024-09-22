@@ -1,15 +1,53 @@
-# openldap-search-server
+# OpenLDAP / ldapsearch Server
 
-To install dependencies:
+## How to use?
 
+You can use the provided image from the ghcr:
 ```bash
-bun install
+docker run --rm -it -p 3000:3000 ghcr.io/heyitsbatman/openldap-search-server:main
 ```
 
-To run:
-
+Or build the container yourself (see [Requirements](#requirements)):
 ```bash
-bun run index.ts
+git clone https://github.com/HeyItsBATMAN/openldap-search-server.git
+bun run docker:build
+bun run docker:run
 ```
 
-This project was created using `bun init` in bun v1.1.27. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Afterwards you can send requests to the application on port `3000`.
+
+A swagger documentation is available at `http://localhost:3000/swagger`.
+
+## Examples
+
+```javascript
+fetch('http://localhost:3000/search', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    host: '',
+    bindDn: '',
+    bindPassword: '',
+    searchBase: ''
+    searchFilter: '' // optional
+  })
+})
+```
+
+## Requirements
+
+If you intend to build and modify this image, the following applications are required:
+- Bun ([Homepage](https://bun.sh/), [Github](https://github.com/oven-sh/bun))
+- Docker ([Homepage](https://www.docker.com/), [Github](https://github.com/docker/cli))
+
+## Motivation
+
+I was getting frustrated with by LDAP queries working when using `ldapsearch`, but not when using any of the JavaScript/TypeScript implementations.
+
+## Acknowledgements
+
+- The OpenLDAP project ([Homepage](https://www.openldap.org/))
+- Bun, the JavaScript runtime ([Homepage](https://bun.sh/), [Github](https://github.com/oven-sh/bun))
+- ElysiaJS, the fast web framework ([Homepage](https://elysiajs.com/), [Github](https://github.com/elysiajs/elysia))

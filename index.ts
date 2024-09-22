@@ -42,7 +42,6 @@ const app = new Elysia()
     "/version/:format?",
     async ({ params: { format } }) => {
       const result = await (await Bun.$`ldapsearch -VV`).stderr.toString();
-      console.log("Version text", result);
 
       if (format === Format.JSON) {
         return extractVersionInfo(result);
