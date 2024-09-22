@@ -1,0 +1,29 @@
+{
+  "name": "openldap-search-server",
+  "module": "index.ts",
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@types/bun": "^1.1.9"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@elysiajs/swagger": "^1.1.1",
+    "elysia": "^1.1.13"
+  },
+  "author": {
+    "name": "Kai Niebes",
+    "email": "kai.niebes@outlook.com",
+    "url": "https://github.com/HeyItsBATMAN"
+  },
+  "scripts": {
+    "build": "bun build index.ts --target bun --outdir ./dist",
+    "start": "NODE_ENV=production bun dist/index.js",
+    "dev": "bun run --watch index.ts",
+    "test": "bun test",
+    "docker:build": "docker buildx build -f Dockerfile -t openldap-search-server:latest .",
+    "docker:run": "docker run --rm -p 3000:3000 -it openldap-search-server:latest"
+  }
+}
